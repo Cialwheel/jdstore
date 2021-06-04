@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2> Shopping Details </h2>
+    <table class="table table-boldered">
+      <thead>
+        <tr>
+          <th>Product details</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product_lists.each do |product_list| %>
+          <tr>
+            <td><%= product_list.product_name %></td>
+            <td><%= product_list.product_price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="total clearfix">
+      <span class="pull-right">
+        总计 <%= render_total(current_cart) %> RMB
+      </span>
+    </div>
+    <hr>
+    <h2> Address </h2>
+    <table class="table table-boldered table-striped custab">
+      <tbody>
+        <tr>
+          <td>buyer</td>
+        </tr>
+        <tr>
+          <td><%= @order.billing_name %> - <%= @order.billing_address %></td>
+        </tr>
+        <tr>
+          <td>receiver</td>
+        </tr>
+        <tr>
+          <td><%= @order.shipping_name %> - <%= @order.shipping_address%></td>
+        </tr>
+      </tbody>
+    </table>
+    <% if !@order.is_paid? %>
+    <div class="group pull-right">
+      <%= link_to("Ali pay", pay_with_alipay_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
+      <%= link_to("Wechat pay", pay_with_wechat_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
+    </div>
+    <% else %>
+      <p class="text-center">already paid</p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="row" >
+  <div class="col-md-12">
+    <table class="table table-boldered">
+      <thead>
+        <tr>
+          <th width="600">#</th>
+          <th>create_time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+        <tr>
+          <td><%= link_to(order.id, order_path(order.token)) %></td>
+          <td><%= order.created_at %></td>
+          <td><%= link_to("Delete",order_path(order.token), :method => :delete) %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
