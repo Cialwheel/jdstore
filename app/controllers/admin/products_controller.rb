@@ -36,6 +36,17 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def require_is_admin
+    if !current_user.admin?
+      flash[:alert] = 'You are not admin'
+      redirect_to root_path
+    end
+  end
+
+  def admin?
+    email == 'caizilun200101@163.com'
+  end
+
   def destroy
     @product = Product.find(params[:id])
     @product.destroy

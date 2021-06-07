@@ -8,6 +8,7 @@ class Order < ApplicationRecord
 
   has_many :product_lists
   belongs_to :user
+
   include AASM
 
   aasm do

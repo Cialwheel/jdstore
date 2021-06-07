@@ -6,31 +6,18 @@ class Admin::OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
-    @product_lists = @order.product_lists
+   @order = Order.find(params[:id])
+   @product_lists = @order.product_lists
   end
 
-  def ship
-    @order = Order.find(params[:id])
-    @order.ship!
-    redirect_to :back
+  def require_is_admin
+    if !current_user.admin?
+      flash[:alert] = 'You are not admin'
+      redirect_to root_path
+    end
   end
 
-  def shipped
-    @order = Order.find(params[:id])
-    @order.deliver!
-    redirect_to :back
-  end
-
-  def cancel
-    @order = Order.find(params[:id])
-    @order.cancel_order!
-    redirect_to :back
-  end
-
-  def return
-    @order = Order.find(params[:id])
-    @order.return_good!
-    redirect_to :back
+  def admin?
+    email == 'caizilun200101@163.com'
   end
 end
